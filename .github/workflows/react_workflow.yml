@@ -1,0 +1,46 @@
+name: React Workflow
+
+on:
+  push:
+    branches:
+      - react_app_deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
+
+     
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+     
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+
+      
+      - name: Deploy to Surge
+        uses: dswistowski/surge-sh-action@v1.1.0
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          surge_login: ${{ secrets.SURGE_LOGIN }}
+          project: ./build
+          domain: spiritual-opinion.surge.sh
