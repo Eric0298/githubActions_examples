@@ -43,4 +43,4 @@ jobs:
           surge_token: ${{ secrets.SURGE_TOKEN }}
           surge_login: ${{ secrets.SURGE_LOGIN }}
           project: ./build
-          domain: spiritual-opinion.surge.sh
+          domain: react-app-eric.surge.sh
