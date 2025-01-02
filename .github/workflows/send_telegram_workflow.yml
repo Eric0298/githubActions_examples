@@ -10,6 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      # Instalar Node.js y las dependencias
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'  # Usar la versión de Node.js que mencionas en action.yml
+      
+      # Instalar las dependencias del proyecto
+      - name: Install dependencies
+        run: npm install
+
+      # Ejecutar la acción personalizada
       - uses: ./ # Indica la raíz del repositorio para encontrar `action.yml`
         with:
           telegram_token: ${{ secrets.TELEGRAM_TOKEN }}
