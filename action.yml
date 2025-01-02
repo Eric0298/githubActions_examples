@@ -1,9 +1,18 @@
-name: 'Send Telegram Message'
-description: 'Custom GitHub Action to send Telegram messages'
+name: telegram-action
+description: "Envia un mensaje de confirmación del workflow al usuario."
 inputs:
-  name:
-    description: 'Name to include in the Telegram message'
+  telegram_token:
+    description: "Token del usuario de Telegram"
     required: true
+  telegram_id_user:
+    description: "Id del usuario de Telegram"
+    required: true
+  user_name:
+    description: "Nombre del usuario"
+    required: true
+outputs:
+  msg:
+    description: "Mensaje de respuesta del script"
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: "node20"
+  main: "./index.js"

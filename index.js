@@ -1,13 +1,15 @@
 const TelegramBot = require('node-telegram-bot-api');
+const core = require('@actions/core');
 
-const token = process.env.TELEGRAM_TOKEN;
-const chatId = process.env.TELEGRAM_ID_USER;
-const name = process.env.USER_NAME;
+const token = core.getInput("telegram_token");
+const chatID = core.getInput("telegram_id_user");
 
-const bot = new TelegramBot(token);
+const bot = new TelegramBot(token, { polling: true });
 
-const message = `Workflow executat correctament després de l'últim commit. Salutacions ${name}`;
-
-bot.sendMessage(chatId, message)
-   .then(() => console.log("Missatge enviat."))
-   .catch((err) => console.error(err));
+try {
+    const message = `Workflow ejecutado correctamente tras el último commit. Saludos ${core.getInput("user_name")}`;
+    bot.sendMessage(chatID, message);
+    core.setOutput("msg", "Mensaje enviado correctamente");
+} catch (e) {
+    core.setFailed(e.message);
+}

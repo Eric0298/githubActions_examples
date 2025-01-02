@@ -1,29 +1,17 @@
-name: Send Telegram Message Workflow
+name: telegram-bot
 
 on:
   push:
     branches:
-      - send_telegram_action
+      - "send_telegram_action"
 
 jobs:
-  envio_missatge:
+  send_message:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: ./ # Indica la raíz del repositorio para encontrar `action.yml`
         with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Send Telegram Message
-        uses: ./
-        with:
-          name: 'NOM'
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_ID_USER: ${{ secrets.TELEGRAM_ID_USER }}
+          telegram_token: ${{ secrets.TELEGRAM_TOKEN }}
+          telegram_id_user: ${{ secrets.TELEGRAM_ID_USER }}
+          user_name: "TuNombre"
