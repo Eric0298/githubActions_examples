@@ -1,0 +1,21 @@
+name: Send Telegram Message Workflow
+
+on:
+  push:
+    branches:
+      - send_telegram_action
+
+jobs:
+  envio_missatge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Send Telegram Message
+        uses: ./
+        with:
+          name: 'NOM'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_ID_USER: ${{ secrets.TELEGRAM_ID_USER }}

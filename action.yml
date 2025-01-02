@@ -1,0 +1,9 @@
+name: 'Send Telegram Message'
+description: 'Custom GitHub Action to send Telegram messages'
+inputs:
+  name:
+    description: 'Name to include in the Telegram message'
+    required: true
+runs:
+  using: 'node16'
+  main: 'index.js'
